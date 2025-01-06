@@ -16,6 +16,8 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import clsx from "clsx";
 import { NavContext } from "../../../context/NavContext";
+import logo from '././../../../../../assets/payplatter.png';
+import SideBarLinks from "./SideBarLinks";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -48,13 +50,12 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   appName: {
-    marginLeft: "auto",
     marginRight: "auto",
   },
 }));
@@ -85,7 +86,20 @@ const SideDrawer = (props) => {
           align="right"
           color="textPrimary"
         >
-          Your Logo
+<img 
+    src={logo} 
+    alt="App Logo" 
+    className="app-logo" 
+    style={{
+        width: '45px', 
+        height: '45px', 
+        objectFit: 'contain', 
+        margin: '10px 0', /* Remove horizontal centering */
+        display: 'block', 
+        paddingLeft: '10px' /* Add some left padding for spacing */
+    }} 
+
+/>
         </Typography>
         <IconButton onClick={navCon.drawerClose}>
           {theme.direction === "rtl" ? (

@@ -82,17 +82,9 @@ const TopBar = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          Electro-Dash
+          Water Billing Software
         </Typography>
-        <IconButton
-          className={classes.toggleIcon}
-          color="inherit"
-          aria-label="mode"
-          onClick={themeContext.toggleTheme}
-          edge="start"
-        >
-          {icon}
-        </IconButton>
+        
       </Toolbar>
     </AppBar>
   );

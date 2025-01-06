@@ -1,9 +1,9 @@
 {
-  "name": "electro-dash-electron-dashboard",
-  "productName": "electro-dash",
+  "name": "dexpert-water-billing-software",
+  "productName": "water-billing-software",
   "version": "1.0.0",
-  "author": "tmKamal",
-  "description": "Electro dash is a clean and sleek dashboard template developed with electron.js and react.js.",
+  "author": "Bhargav Karlapudi",
+  "description": "Dexpert System's Water Billing Software is a easy-to-use and comprehensive software developed with for Water Billing Purposes.",
   "license": "MIT",
   "engines": {
     "node": ">=9.0.0",
@@ -28,6 +28,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "chart.js": "^2.9.3",
     "material-design-icons": "^3.0.1",
+    "nvm": "^0.0.4",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
@@ -56,7 +57,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "build": {
-    "appId": "com.electron-boilerplate.app",
+    "appId": "com.dexpertwaterbill.app",
     "target": "NSIS",
     "directories": {
       "output": "release/"

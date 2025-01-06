@@ -20,7 +20,7 @@ const HomePage = () => {
         color="textPrimary"
         gutterBottom
       >
-        Electro-Dash
+        Water billing Software
       </Typography>
 
       <Typography variant="h5" align="center" color="textSecondary" paragraph>

@@ -18,6 +18,12 @@ import LightTheme from "./shared/themes/LightTheme";
 import { ThemeProvider } from "@material-ui/core";
 import regeneratorRuntime from "regenerator-runtime";
 
+// Import new pages for Master, Transaction, Report, MIS Report
+import NewConsumerEntry from "./pages/Master/NewConsumerEntry";
+import ConsumerDetail from "./pages/Master/ConsumerDetail";
+import Designation from "./pages/Master/Designation";
+import Zone from "./pages/Master/Zone";
+
 export default function App() {
   const [darkState, setDarkState] = useState(false);
   const selectedTheme = darkState ? DarkTheme : LightTheme;
@@ -59,6 +65,23 @@ export default function App() {
             <InterfaceStats></InterfaceStats>
           </Route>
           
+
+          {/* New Routes */}
+          <Route path="/new-consumer-entry" exact>
+            <NewConsumerEntry />
+          </Route>
+          <Route path="/consumer-detail" exact>
+            <ConsumerDetail />
+          </Route>
+          <Route path="/designation" exact>
+            <Designation />
+          </Route>
+          <Route path="/zone" exact>
+            <Zone />
+          </Route>
+          {/* Add routes for all new pages here */}
+
+          {/* Fallback Redirect */}
           <Redirect to="/"></Redirect>
         </Switch>
       </MiniDrawer>
