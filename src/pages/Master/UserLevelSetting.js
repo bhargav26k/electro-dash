@@ -1,12 +1,9 @@
-import React from "react";
+import React from 'react'
 
-const NewConsumerEntry = () => {
+const UserLevelSetting = () => {
   return (
-    <div>
-      <h1>New Consumer Entry</h1>
-      <p>This is a placeholder page for the New Consumer Entry feature.</p>
-    </div>
-  );
-};
+    <div>UserLevelSetting</div>
+  )
+}
 
-export default NewConsumerEntry;
+export default UserLevelSetting

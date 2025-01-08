@@ -32,7 +32,7 @@ module.exports = {
 		historyApiFallback: true,
 	  },
 	plugins: [
-		new HtmlWebpackPlugin({ title: 'Electro-Dash v1.0' }),
+		new HtmlWebpackPlugin({ title: 'Water billing Software v1.0' }),
 		new MiniCssExtractPlugin({
 			filename: 'bundle.css',
 			chunkFilename: '[id].css',

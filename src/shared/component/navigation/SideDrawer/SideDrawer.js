@@ -19,7 +19,7 @@ import { NavContext } from "../../../context/NavContext";
 import logo from '././../../../../../assets/payplatter.png';
 import SideBarLinks from "./SideBarLinks";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -64,6 +64,7 @@ const SideDrawer = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const navCon = useContext(NavContext);
+  
   return (
     <Drawer
       variant="permanent"

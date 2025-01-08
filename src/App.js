@@ -23,6 +23,8 @@ import NewConsumerEntry from "./pages/Master/NewConsumerEntry";
 import ConsumerDetail from "./pages/Master/ConsumerDetail";
 import Designation from "./pages/Master/Designation";
 import Zone from "./pages/Master/Zone";
+import TariffSize from "./pages/Master/TariffSize";
+import ConstructionType from "./pages/Master/ConstructionType";
 
 export default function App() {
   const [darkState, setDarkState] = useState(false);
@@ -75,6 +77,12 @@ export default function App() {
           </Route>
           <Route path="/designation" exact>
             <Designation />
+          </Route>
+          <Route path="/tariff-size" exact>
+            <TariffSize />
+          </Route>
+          <Route path="/construction-type" exact>
+            <ConstructionType />
           </Route>
           <Route path="/zone" exact>
             <Zone />
