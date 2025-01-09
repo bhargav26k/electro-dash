@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifycontent: "flex-end",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -50,7 +50,7 @@ export default function MiniDrawer(props) {
           drawerClose: handleDrawerClose,
         }}
       >
-        <TopBar />
+         <TopBar onSignOut={props.onSignOut} />
         <SideDrawer>
           <SideBarLinks></SideBarLinks>
         </SideDrawer>

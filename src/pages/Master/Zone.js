@@ -11,7 +11,11 @@ import {
   Paper,
   Typography,
   Grid,
+  InputAdornment,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 
 const Zone = () => {
   // State for form fields
@@ -30,8 +34,10 @@ const Zone = () => {
     { zoneName: "Zone 6", description: "Zone 6" },
   ]);
 
-  // State to track editing
   const [editIndex, setEditIndex] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
 
   // Handle form input changes
   const handleInputChange = (e) => {
@@ -42,13 +48,11 @@ const Zone = () => {
   // Handle form submission (add or update)
   const handleSubmit = () => {
     if (editIndex !== null) {
-      // Update existing entry
       const updatedZones = [...zones];
       updatedZones[editIndex] = formData;
       setZones(updatedZones);
       setEditIndex(null);
     } else {
-      // Add new entry
       setZones((prevZones) => [...prevZones, formData]);
     }
     setFormData({ zoneName: "", description: "" });
@@ -66,11 +70,73 @@ const Zone = () => {
     setZones(updatedZones);
   };
 
+  // Handle search and pagination
+  const filteredData = zones.filter((zone) =>
+    Object.values(zone)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+
+  const paginatedData = filteredData.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
+  const handlePageChange = (direction) => {
+    if (direction === "next" && page < totalPages - 1) setPage(page + 1);
+    if (direction === "prev" && page > 0) setPage(page - 1);
+    if (direction === "first") setPage(0);
+    if (direction === "last") setPage(totalPages - 1);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to the first page
+  };
+
   return (
     <Paper style={{ padding: "20px", minHeight: "100vh" }} elevation={3}>
-      <Typography variant="h4" style={{ marginBottom: "20px" }}>
-        Zone Master
-      </Typography>
+      <Grid
+        container
+        alignItems="center"
+        justifycontent="space-between"
+        style={{ marginBottom: "20px" }}
+      >
+        <Grid item xs={12} md={6}>
+          <Typography variant="h5">Zone Master</Typography>
+        </Grid>
+        <Grid item xs={12} md={6} style={{ textAlign: "right" }}>
+          <TextField
+            label="Search Zones"
+            variant="outlined"
+            style={{
+              maxWidth: "400px",
+              marginLeft: "auto",
+            }}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+              style: {
+                padding: "5px 10px", // Adjusted padding to reduce height
+                height: "36px", // Set explicit height
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                fontSize: "14px", // Adjusted label font size
+                top: "-4px", // Align label better with reduced height
+              },
+            }}
+          />
+        </Grid>
+      </Grid>
 
       {/* Form Section */}
       <Paper style={{ padding: "20px", marginBottom: "20px" }} elevation={3}>
@@ -123,13 +189,19 @@ const Zone = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><b>Zone Name</b></TableCell>
-              <TableCell><b>Description</b></TableCell>
-              <TableCell><b>Actions</b></TableCell>
+              <TableCell>
+                <b>Zone Name</b>
+              </TableCell>
+              <TableCell>
+                <b>Description</b>
+              </TableCell>
+              <TableCell>
+                <b>Actions</b>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {zones.map((zone, index) => (
+            {paginatedData.map((zone, index) => (
               <TableRow key={index}>
                 <TableCell>{zone.zoneName}</TableCell>
                 <TableCell>{zone.description}</TableCell>
@@ -139,7 +211,7 @@ const Zone = () => {
                     color="primary"
                     size="small"
                     onClick={() => handleEdit(index)}
-                    style={{ marginRight: "5px" }}
+                    style={{ marginRight: "5px", marginBottom:"5px" }}
                   >
                     Edit
                   </Button>
@@ -148,6 +220,7 @@ const Zone = () => {
                     color="secondary"
                     size="small"
                     onClick={() => handleDelete(index)}
+                    style={{ marginRight: "5px", marginBottom:"5px" }}
                   >
                     Delete
                   </Button>
@@ -157,6 +230,101 @@ const Zone = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Grid
+        container
+        alignItems="center"
+        justifycontent="space-between"
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          borderRadius: "8px",
+          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        {/* First and Previous Buttons */}
+        <Grid item>
+          <Button
+            variant="outlined"
+            onClick={() => handlePageChange("first")}
+            disabled={page === 0}
+            style={{ marginRight: "10px", minWidth: "80px" }}
+          >
+            First
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => handlePageChange("prev")}
+            disabled={page === 0}
+            style={{ minWidth: "80px",marginRight: "10px" }}
+          >
+            Previous
+          </Button>
+        </Grid>
+
+        {/* Current Page Display */}
+        <Grid item>
+          <Typography
+            variant="body1"
+            style={{
+              fontWeight: "500",
+              textAlign: "center",
+            }}
+          >
+            Page <strong>{page + 1}</strong> of <strong>{totalPages}</strong>
+          </Typography>
+        </Grid>
+
+        {/* Next and Last Buttons */}
+        <Grid item>
+          <Button
+            variant="outlined"
+            onClick={() => handlePageChange("next")}
+            disabled={page >= totalPages - 1}
+            style={{ marginRight: "10px", minWidth: "80px", marginLeft: "10px" }}
+          >
+            Next
+          </Button>
+          <Button
+            variant="outlined"
+            onClick={() => handlePageChange("last")}
+            disabled={page >= totalPages - 1}
+            style={{ minWidth: "80px", marginRight: "10px" }}
+          >
+            Last
+          </Button>
+        </Grid>
+
+        {/* Rows Per Page Selector */}
+        <Grid item>
+          <Typography
+            variant="body2"
+            style={{
+              fontWeight: "500",
+              marginRight: "10px",
+              display: "inline-block",
+            }}
+          >
+            Rows per page:
+          </Typography>
+          <Select
+            value={rowsPerPage}
+            onChange={handleRowsPerPageChange}
+            variant="outlined"
+            style={{
+              width: "80px",
+              fontSize: "14px",
+              padding: "5px 10px",
+              height: "36px",
+              lineHeight: "1.5",
+            }}
+          >
+            <MenuItem value={5}>5</MenuItem>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={25}>25</MenuItem>
+          </Select>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };

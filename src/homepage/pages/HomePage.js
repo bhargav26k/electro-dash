@@ -21,6 +21,13 @@ const useStyles = makeStyles((theme) => ({
   chartContainer: {
     marginTop: theme.spacing(3),
   },
+  chart: {
+    position: "relative",
+    height: "300px", // Fixed height for charts for consistent layout
+    [theme.breakpoints.down("sm")]: {
+      height: "200px", // Smaller height for small screens
+    },
+  },
 }));
 
 const HomePage = () => {
@@ -30,7 +37,7 @@ const HomePage = () => {
   const cardData = [
     { title: "Consumers", value: "5,230" },
     { title: "Bills", value: "1,024" },
-    { title: "Revenue", value: "$45,000" },
+    { title: "Revenue", value: "₹45,000" },
     { title: "Connections", value: "4,856" },
   ];
 
@@ -76,7 +83,7 @@ const HomePage = () => {
   return (
     <Box className={classes.root}>
       <Typography variant="h4" gutterBottom>
-        Dashboard
+        <b style={{ color: "#224466" }}>Dashboard</b>
       </Typography>
 
       {/* Cards Section */}
@@ -88,7 +95,7 @@ const HomePage = () => {
                 <Typography variant="h6" component="h2">
                   {card.title}
                 </Typography>
-                <Typography variant="h4" component="p" >
+                <Typography variant="h4" component="p">
                   {card.value}
                 </Typography>
               </CardContent>
@@ -105,7 +112,9 @@ const HomePage = () => {
               <Typography variant="h6" gutterBottom>
                 Revenue Over Time
               </Typography>
-              <Bar data={barChartData} options={{ maintainAspectRatio: false }} />
+              <div className={classes.chart}>
+                <Bar data={barChartData} options={{ maintainAspectRatio: false }} />
+              </div>
             </CardContent>
           </Card>
         </Grid>
@@ -116,7 +125,9 @@ const HomePage = () => {
               <Typography variant="h6" gutterBottom>
                 Bill Status
               </Typography>
-              <Doughnut data={doughnutChartData} options={{ maintainAspectRatio: false }} />
+              <div className={classes.chart}>
+                <Doughnut data={doughnutChartData} options={{ maintainAspectRatio: false }} />
+              </div>
             </CardContent>
           </Card>
         </Grid>
@@ -127,7 +138,9 @@ const HomePage = () => {
               <Typography variant="h6" gutterBottom>
                 Active Connections Over Time
               </Typography>
-              <Line data={lineChartData} options={{ maintainAspectRatio: false }} />
+              <div className={classes.chart}>
+                <Line data={lineChartData} options={{ maintainAspectRatio: false }} />
+              </div>
             </CardContent>
           </Card>
         </Grid>

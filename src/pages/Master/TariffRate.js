@@ -26,16 +26,16 @@ const TariffRate = () => {
   const [oldRates, setOldRates] = useState([
     {
       tariffTypeName: "Domestic",
-      fromDate: "29-04-2010",
-      uptoDate: "29-04-2020",
+      fromDate: "2010-04-29",
+      uptoDate: "2020-04-29",
       fromSlab: 12601,
       uptoSlab: 22500,
       rate: 7.5,
     },
     {
       tariffTypeName: "Commercial",
-      fromDate: "29-04-2010",
-      uptoDate: "29-04-2020",
+      fromDate: "2010-04-29",
+      uptoDate: "2020-04-29",
       fromSlab: 22501,
       uptoSlab: 32400,
       rate: 11,
@@ -46,6 +46,7 @@ const TariffRate = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
 
+
   const totalPages = Math.ceil(
     oldRates.filter((rate) =>
       Object.values(rate)
@@ -55,9 +56,25 @@ const TariffRate = () => {
     ).length / rowsPerPage
   );
 
+  // Function to format date as DD-MMM-YYYY
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = date.toLocaleString("default", { month: "short" });
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
+
+  // Format hardcoded oldRates dates on initial load
+  const formattedOldRates = oldRates.map((rate) => ({
+    ...rate,
+    fromDate: formatDate(rate.fromDate),
+    uptoDate: formatDate(rate.uptoDate),
+  }));
+
   // Handle adding new rates to old rates
   const saveNewRates = () => {
-    const currentDate = new Date().toLocaleDateString("en-GB");
+    const currentDate = formatDate(new Date().toISOString());
     const newOldRates = newRates.map((rate) => ({
       tariffTypeName: rate.tariffTypeName,
       fromDate: currentDate,
@@ -66,7 +83,14 @@ const TariffRate = () => {
       uptoSlab: rate.uptoSlab,
       rate: rate.rate,
     }));
-    setOldRates((prevRates) => [...prevRates, ...newOldRates]);
+    setOldRates((prevRates) => [
+      ...prevRates.map((rate) => ({
+        ...rate,
+        fromDate: formatDate(rate.fromDate),
+        uptoDate: formatDate(rate.uptoDate),
+      })),
+      ...newOldRates,
+    ]);
     setNewRates([
       { tariffTypeName: "Domestic", fromSlab: 0, uptoSlab: 0, rate: 0 },
       { tariffTypeName: "Commercial", fromSlab: 0, uptoSlab: 0, rate: 0 },
@@ -81,7 +105,7 @@ const TariffRate = () => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    setPage(0); // Reset to the first page
+    setPage(0);
   };
 
   const handlePageChange = (direction) => {
@@ -93,10 +117,10 @@ const TariffRate = () => {
 
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); // Reset to the first page
+    setPage(0);
   };
 
-  const filteredOldRates = oldRates.filter((rate) =>
+  const filteredOldRates = formattedOldRates.filter((rate) =>
     Object.values(rate)
       .join(" ")
       .toLowerCase()
@@ -120,7 +144,7 @@ const TariffRate = () => {
           <TextField
             label="From Date"
             type="date"
-            defaultValue={new Date().toISOString().substring(0, 10)}
+            defaultValue={new Date().toISOString().split("T")[0]}
             InputLabelProps={{
               shrink: true,
             }}
@@ -133,7 +157,7 @@ const TariffRate = () => {
           <TextField
             label="Upto Date"
             type="date"
-            defaultValue={new Date().toISOString().substring(0, 10)}
+            defaultValue={new Date().toISOString().split("T")[0]}
             InputLabelProps={{
               shrink: true,
             }}

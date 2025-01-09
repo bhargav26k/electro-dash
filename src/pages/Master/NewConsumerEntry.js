@@ -103,6 +103,9 @@ const NewConsumerEntry = () => {
         </Grid>
       </Paper>
 
+{/* Address Information and Billing Details */}
+<Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
       {/* Address Information */}
       <Paper style={{ padding: "20px", marginBottom: "20px" }} elevation={3}>
         <Typography variant="h6" style={{ marginBottom: "10px" }}>
@@ -191,7 +194,9 @@ const NewConsumerEntry = () => {
           </Grid>
         </Grid>
       </Paper>
+</Grid>
 
+<Grid item xs={12} md={6}>
        {/* Billing Details */}
 <Paper style={{ padding: "20px", marginBottom: "20px" }} elevation={3}>
   <Typography variant="h6" style={{ marginBottom: "10px" }}>
@@ -332,8 +337,12 @@ const NewConsumerEntry = () => {
     </Grid>
   </Grid>
 </Paper>
+ </Grid>
+ </Grid>
 
-
+ {/* Connection Sanction Information and Meter Details */}
+ <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
       {/* Connection Sanction Information */}
 <Paper style={{ padding: "20px", marginBottom: "20px" }} elevation={3}>
   <Typography variant="h6" style={{ marginBottom: "10px" }}>
@@ -443,7 +452,9 @@ const NewConsumerEntry = () => {
     </Grid>
   </Grid>
 </Paper>
+</Grid>
 
+        <Grid item xs={12} md={6}>
 {/* Meter Details */}
 <Paper style={{ padding: "20px", marginBottom: "20px" }} elevation={3}>
   <Typography variant="h6" style={{ marginBottom: "10px" }}>
@@ -551,12 +562,14 @@ const NewConsumerEntry = () => {
     </Grid>
   </Grid>
 </Paper>
+ </Grid>
+ </Grid>
 
 
 
       {/* Buttons */}
       <Paper style={{ padding: "20px", marginTop: "20px" }} elevation={3}>
-        <Grid container spacing={2} justifyContent="center">
+        <Grid container spacing={2} >
           <Grid item>
             <Button variant="contained" color="primary" style={{ marginRight: "10px" }}>
               New

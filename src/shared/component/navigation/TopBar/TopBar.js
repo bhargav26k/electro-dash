@@ -23,6 +23,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { autoUpdater } from "electron";
+import { useHistory } from "react-router-dom"; // For navigation
 
 const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +71,7 @@ profileIcon: {
     padding: theme.spacing(2),
     display: "flex",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifycontent: "space-between",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
@@ -94,11 +95,12 @@ badge: {
   },
 }));
 
-const TopBar = () => {
+const TopBar = ({onSignOut }) => {
   const classes = useStyles();
   const theme = useTheme();
   const navCon = useContext(NavContext);
   const themeContext = useContext(ThemeContext);
+  const history = useHistory(); // For navigation
 
   const icon = !themeContext.themeState ? (
     <Brightness7Icon />
@@ -118,11 +120,11 @@ const TopBar = () => {
   };
 
   const handleSignOut = () => {
-    // Add your sign-out logic here
+    onSignOut(); // Notify App.js
+    setAnchorEl(null); // Close the menu
     console.log("User signed out");
-    setAnchorEl(null);
   };
-
+  
   return (
     <AppBar
       position="fixed"

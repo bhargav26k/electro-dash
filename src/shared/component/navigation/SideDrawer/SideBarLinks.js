@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation  } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -15,23 +15,63 @@ import PersonIcon from "@material-ui/icons/Person";
 import BuildIcon from "@material-ui/icons/Build";
 import HomeIcon from "@material-ui/icons/Home";
 import ListAltIcon from "@material-ui/icons/ListAlt";
-import EqualizerIcon from "@material-ui/icons/Equalizer";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import ReceiptIcon from "@material-ui/icons/Receipt";
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import GamesIcon from '@material-ui/icons/Games';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import { Dashboard } from "@material-ui/icons";
+import TableChartIcon from '@material-ui/icons/TableChart';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import WorkOutlineIcon from '@material-ui/icons/WorkOutline';
+import WorkIcon from '@material-ui/icons/Work';
+import AspectRatioIcon from '@material-ui/icons/AspectRatio';
+import RoomIcon from '@material-ui/icons/Room';
+import ApartmentIcon from '@material-ui/icons/Apartment';
+import LocalConvenienceStoreIcon from '@material-ui/icons/LocalConvenienceStore';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import MenuIcon from '@material-ui/icons/Menu';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import PolicyIcon from '@material-ui/icons/Policy';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import AmpStoriesIcon from '@material-ui/icons/AmpStories';
+import SpeedIcon from '@material-ui/icons/Speed';
+import PeopleIcon from '@material-ui/icons/People';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import NoteIcon from '@material-ui/icons/Note';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import SmsFailedIcon from '@material-ui/icons/SmsFailed';
+import PageviewIcon from '@material-ui/icons/Pageview';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import BubbleChartIcon from '@material-ui/icons/BubbleChart';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PrintIcon from '@material-ui/icons/Print';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import LaunchIcon from '@material-ui/icons/Launch';
+import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
+import HelpIcon from '@material-ui/icons/Help';
+
 const useStyles = makeStyles((theme) => ({
   nested: {
-    paddingLeft: theme.spacing(3),
+    paddingLeft: theme.spacing(4),
   },
   listItem: {
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
+      borderRadius:"3px",
     },
   },
   activeLink: {
     backgroundColor: theme.palette.action.selected,
+    borderRadius:"3px",
+    color: theme.palette.secondary.main,
+    "& .MuiListItemIcon-root": {
+      color: theme.palette.secondary.main,
+    },
   },
   sidebar: {
     maxHeight: "100vh", // Limit height to viewport
@@ -44,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: theme.palette.primary.main, // Chrome/Safari/Edge: Scrollbar color
-      borderRadius: "25px", // Chrome/Safari/Edge: Rounded scrollbar
+      borderRadius: "5px", // Chrome/Safari/Edge: Rounded scrollbar
     },
     "&::-webkit-scrollbar-track": {
       backgroundColor: "transparent", // Chrome/Safari/Edge: Transparent scrollbar track
@@ -54,13 +94,15 @@ const useStyles = makeStyles((theme) => ({
 
 const SideBarLinks = () => {
   const classes = useStyles();
+  const location = useLocation(); // To determine the current path
 
   // Initialize all sections as open
   const [openSections, setOpenSections] = useState({
-    Master: true,
-    Transaction: true,
-    Report: true,
-    "MIS Report": true,
+    // Dashboard:true,
+    // Master: true,
+    // Transaction: true,
+    // Report: true,
+    // "MIS Report": true,
   });
 
   const handleToggle = (section) => {
@@ -73,74 +115,109 @@ const SideBarLinks = () => {
   const menuStructure = [
     {
       title: "Dashboard",
-      icon: <DashboardIcon />,
-      submenus: [
-        { title: "DashBoard", path: "/", icon: <HomeIcon /> },
-      ],
+      path: "/", // Dashboard as a standalone page
+      icon: <HomeIcon />,
+      submenus: null, // No submenus for Dashboard
     },
     {
       title: "Master",
-      icon: <SettingsIcon />,
+      icon: <GamesIcon />,
       submenus: [
-        { title: "New Consumer Entry", path: "/new-consumer-entry", icon: <PersonIcon /> },
-        { title: "Consumer Detail", path: "/consumer-detail", icon: <HomeIcon /> },
-        { title: "Designation", path: "/designation", icon: <ListAltIcon /> },
+        { title: "New Consumer Entry", path: "/new-consumer-entry", icon: <PersonAddIcon /> },
+        { title: "Consumer Detail", path: "/consumer-detail", icon: <ListAltIcon /> },
+        { title: "Designation", path: "/designation", icon: <WorkIcon /> },
         { title: "User Level Setting", path: "/user-level-setting", icon: <BuildIcon /> },
-        { title: "Tariff Size", path: "/tariff-size", icon: <EqualizerIcon /> },
-        { title: "Zone", path: "/zone", icon: <DashboardIcon /> },
-        { title: "Bit", path: "/bit", icon: <MonetizationOnIcon /> },
-        { title: "Construction Type", path: "/construction-type", icon: <BuildIcon /> },
-        { title: "Connection (Tariff) Type", path: "/connection-type", icon: <SettingsIcon /> },
-        { title: "Tariff Rate", path: "/tariff-rate", icon: <EqualizerIcon /> },
+        { title: "Tariff Size", path: "/tariff-size", icon: <AspectRatioIcon /> },
+        { title: "Zone", path: "/zone", icon: <RoomIcon /> },
+        { title: "Bill", path: "/bill", icon: <ReceiptIcon /> },
+        { title: "Construction Type", path: "/construction-type", icon: <ApartmentIcon /> },
+        { title: "Connection (Tariff) Type", path: "/connection-type", icon: <LocalConvenienceStoreIcon /> },
+        { title: "Tariff Rate", path: "/tariff-rate", icon: <LocalOfferIcon /> },
         {
           title: "System",
-          icon: <DashboardIcon />,
+          icon: <SettingsIcon />,
           submenus: [
-            { title: "Dash Board", path: "/system/dashboard", icon: <HomeIcon /> },
-            { title: "Menu Master", path: "/system/menu-master", icon: <ListAltIcon /> },
-            { title: "Policy Master", path: "/system/policy-master", icon: <ReceiptIcon /> },
+            { title: "Dashboard", path: "/system/dashboard", icon: <Dashboard /> },
+            { title: "Menu Master", path: "/system/menu-master", icon: <MenuBookIcon /> },
+            { title: "Policy Master", path: "/system/policy-master", icon: <PolicyIcon /> },
           ],
         },
-        { title: "Receipt Deletion", path: "/receipt-deletion", icon: <ReceiptIcon /> },
-        { title: "Collection Center", path: "/collection-center", icon: <HomeIcon /> },
-        { title: "Arrear Entry", path: "/arrear-entry", icon: <ListAltIcon /> },
-        { title: "Bluk Meter Master", path: "/bulk-meter-master", icon: <BuildIcon /> },
-        { title: "Employee Master", path: "/employee-master", icon: <PersonIcon /> },
+        { title: "Receipt Deletion", path: "/receipt-deletion", icon: <DeleteForeverIcon /> },
+        { title: "Collection Center", path: "/collection-center", icon: <CollectionsBookmarkIcon /> },
+        { title: "Arrear Entry", path: "/arrear-entry", icon: <AmpStoriesIcon /> },
+        { title: "Bulk Meter Master", path: "/bulk-meter-master", icon: <SpeedIcon /> },
+        { title: "Employee Master", path: "/employee-master", icon: <PeopleIcon /> },
       ],
     },
     {
       title: "Transaction",
-      icon: <MonetizationOnIcon />,
+      icon: <AccountBalanceIcon />,
       submenus: [
-        { title: "Transaction", path: "/transaction", icon: <AttachMoneyIcon /> },
+        {
+          title: "Billing",
+          icon: <AccountBalanceWalletIcon />,
+          submenus: [
+            { title: "Generate Bill", path: "/transaction/billing/generate-bill", icon: <AddBoxIcon /> },
+            { title: "Edit Bill", path: "/transaction/billing/edit-bill", icon: <BorderColorIcon /> },
+          ],
+        },
+        {
+          title: "Receipts",
+          icon: <NoteIcon />,
+          submenus: [
+            { title: "Add Receipt Data Entry", path: "/transaction/receipts/add-reciept-data-entry", icon: <CreateNewFolderIcon /> },
+            { title: "Import Receipt Data", path: "/transaction/receipts/import-receipt-data", icon: <GetAppIcon /> },
+            { title: "Dishonour Cheque", path: "/transaction/receipts/dishonour-cheque", icon: <SmsFailedIcon /> },
+            { title: "View Receipt Data Entry", path: "/transaction/receipts/view-receipt-data-entry", icon: <PageviewIcon /> },
+          ],
+        },
+        { title: "Credit/Debit Entry", path: "/transaction/credit-debit", icon: <CreditCardIcon /> },
       ],
     },
     {
       title: "Report",
-      icon: <EqualizerIcon />,
+      icon: <AssessmentIcon />,
       submenus: [
-        { title: "Report", path: "/report", icon: <AssessmentIcon /> },
+        {
+          title: "Billing Report",
+          icon: <BubbleChartIcon />,
+          submenus: [
+            { title: "Bill Register", path: "/report/billing/register", icon: <ExitToAppIcon /> },
+            { title: "Bill Print", path: "/report/billing/print", icon: <PrintIcon /> },
+          ],
+        },
+        {
+          title: "Receipt Report",
+          icon: <DonutLargeIcon />,
+          submenus: [
+            { title: "Receipt Deletion", path: "/report/receipt/deletion", icon: <DeleteOutlineIcon /> },
+            { title: "Receipt Register", path: "/report/receipt/register", icon: <LaunchIcon /> },
+          ],
+        },
+        { title: "Arrear Discount", path: "/report/arrear-discount", icon: <OfflineBoltIcon /> },
       ],
     },
     {
       title: "MIS Report",
-      icon: <DashboardIcon />,
+      icon: <TableChartIcon />,
       submenus: [
-        { title: "Help Desk (Dash Board)", path: "/mis-report/help-desk", icon: <HomeIcon /> },
+        { title: "Help Desk (Dashboard)", path: "/mis-report/help-desk", icon: <HelpIcon /> },
       ],
     },
   ];
 
-  const renderSubmenus = (submenus) =>
+  const renderSubmenus = (submenus, level = 1) =>
     submenus.map((submenu, idx) => {
+      const isActive = location.pathname === submenu.path;
       if (submenu.submenus) {
-        // Nested submenus
+        // Render nested submenus
         return (
           <React.Fragment key={submenu.title}>
             <ListItem
               button
               onClick={() => handleToggle(submenu.title)}
-              className={classes.listItem}
+              className={`${classes.listItem} ${isActive ? classes.activeLink : ""}`}
+              style={{ paddingLeft: level * 20 }}
             >
               <ListItemIcon>{submenu.icon}</ListItemIcon>
               <ListItemText primary={submenu.title} />
@@ -148,7 +225,7 @@ const SideBarLinks = () => {
             </ListItem>
             <Collapse in={openSections[submenu.title]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {renderSubmenus(submenu.submenus)}
+                {renderSubmenus(submenu.submenus, level + 1)}
               </List>
             </Collapse>
           </React.Fragment>
@@ -159,9 +236,9 @@ const SideBarLinks = () => {
           key={idx}
           to={submenu.path}
           style={{ textDecoration: "none", color: "inherit" }}
-          activeClassName={classes.activeLink}
+          className={isActive ? classes.activeLink : ""}
         >
-          <ListItem button className={`${classes.nested} ${classes.listItem}`}>
+          <ListItem button className={`${classes.listItem} ${isActive ? classes.activeLink : ""}`} style={{ paddingLeft: level * 20 }}>
             <ListItemIcon>{submenu.icon}</ListItemIcon>
             <ListItemText primary={submenu.title} />
           </ListItem>
@@ -171,33 +248,44 @@ const SideBarLinks = () => {
 
   return (
     <div className={classes.sidebar}>
-    <List>
-      {menuStructure.map((section, idx) => (
-        <React.Fragment key={section.title}>
-          <ListItem
-            button
-            onClick={() => handleToggle(section.title)}
-            className={classes.listItem}
-          >
-            <ListItemIcon>{section.icon}</ListItemIcon>
-            <ListItemText primary={section.title} />
-            {openSections[section.title] ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openSections[section.title]} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              {renderSubmenus(section.submenus)}
-            </List>
-          </Collapse>
-          <hr
-            style={{
-              border: "none",
-              borderTop: "1px solid rgb(144, 161, 177)",
-              marginLeft: '8px'
-            }}
-          />
-        </React.Fragment>
-      ))}
-    </List>
+      <List>
+        {menuStructure.map((section) => {
+          const isActive = location.pathname === section.path;
+          return (
+          <React.Fragment key={section.title}>
+            {section.submenus ? (
+              <React.Fragment>
+                <ListItem
+                  button
+                  onClick={() => handleToggle(section.title)}
+                  className={`${classes.listItem} ${isActive ? classes.activeLink : ""}`}
+                >
+                  <ListItemIcon>{section.icon}</ListItemIcon>
+                  <ListItemText primary={section.title} />
+                  {openSections[section.title] ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={openSections[section.title]} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {renderSubmenus(section.submenus)}
+                  </List>
+                </Collapse>
+              </React.Fragment>
+            ) : (
+              <NavLink
+                to={section.path}
+                style={{ textDecoration: "none", color: "inherit" }}
+                className={isActive ? classes.activeLink : ""}
+              >
+                <ListItem button className={`${classes.listItem} ${isActive ? classes.activeLink : ""}`}>
+                  <ListItemIcon>{section.icon}</ListItemIcon>
+                  <ListItemText primary={section.title} />
+                </ListItem>
+              </NavLink>
+            )}
+          </React.Fragment>
+        );
+        })}
+      </List>
     </div>
   );
 };
